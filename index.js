@@ -12,6 +12,7 @@ const express = require("express");
 const createHttpError = require("http-errors");
 const application = express();
 const authRoutes = require("./routes/auth.js");
+const cookieParser = require("cookie-parser");
 
 
 // Middleware to parse JSON
@@ -19,6 +20,7 @@ application.use(express.json());
 
 // Middleware to parse URL-encoded data (optional)
 application.use(express.urlencoded({ extended: true }));
+application.use(cookieParser());
 
 // Set the port for the server, defaulting to 3000 if not set in environment variables
 const port = process.env.PORT || 3000;

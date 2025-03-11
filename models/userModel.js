@@ -44,6 +44,11 @@ const schema = new Schema({
 
 }, { timestamps: true });
 
+// Method to match entered password with the hashed password in database
+schema.methods.matchPassword = async function (enteredPassword) {
+    return await bcrypt.compare(enteredPassword, this.password);
+};
+
 // Encrypts password before saving if it has been modified
 schema.pre('save', async function (next) {
     if (!this.isModified('password')) {
