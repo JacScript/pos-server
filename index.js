@@ -12,6 +12,8 @@ const express = require("express");
 const createHttpError = require("http-errors");
 const application = express();
 const authRoutes = require("./routes/auth.js");
+const userRoutes = require("./routes/user.js")
+const orderRoutes = require("./routes/order.js");
 const cookieParser = require("cookie-parser");
 
 
@@ -28,6 +30,8 @@ const MONGOURL = process.env.MONGOURL; // MongoDB connection URL from .env
 
 //handling routes
 application.use("/auth", authRoutes);
+application.use("/user", userRoutes);
+application.use("/order",orderRoutes)
 
 // Middleware to handle 404 errors and global errors
 application.use(notFound);
