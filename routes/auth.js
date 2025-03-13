@@ -63,7 +63,6 @@ router.post("/register", async (request, response,next) => {
     // response.status(201).json({...others, accessToken});
     response.status(201).json({success:true, message: "User Created",data: {...others}});
   } catch (err) {
-    console.error(err);
     response.status(500).json({ message: "Server error. Please try again." });
   }
 });
@@ -113,7 +112,6 @@ router.post("/login", async (request, response, next) => {
         response.status(401).json({ message: "Invalid phone number or password" });
       }
     } catch (err) {
-      console.error(err);
       response.status(500).json({ message: "Server error. Please try again." });
     }
   });
