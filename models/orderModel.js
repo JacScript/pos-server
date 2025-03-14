@@ -1,4 +1,4 @@
-const { model, Schema } = require("mongoose");
+const { model, Schema, default: mongoose } = require("mongoose");
 
 const schema = new Schema({
     customerDetails: {
@@ -38,7 +38,8 @@ const schema = new Schema({
             required: true
         }
     },
-    items: []
+    items: [],
+    table: {type: mongoose.Schema.Types.ObjectId, ref: "Table"}
 }, {timestamps: true});
 
 
