@@ -16,14 +16,20 @@ const userRoutes = require("./routes/user.js")
 const orderRoutes = require("./routes/order.js");
 const tableRoutes = require("./routes/table.js");
 const cookieParser = require("cookie-parser");
-
+const cors = require("cors")
 
 // Middleware to parse JSON
 application.use(express.json()); 
 
 // Middleware to parse URL-encoded data (optional)
+application.use(cors({
+    origin: "http://localhost:5173 ",
+    credentials: true
+})
+); 
 application.use(express.urlencoded({ extended: true }));
 application.use(cookieParser());
+
 
 // Set the port for the server, defaulting to 3000 if not set in environment variables
 const port = process.env.PORT || 3000;

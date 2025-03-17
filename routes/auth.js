@@ -2,9 +2,14 @@ const router = require("express").Router();
 const  User  = require('../models/userModel');
 const createHttpError = require("http-errors");
 const jwt = require('jsonwebtoken');
-const matchPassword = require("../models/userModel");
+// const matchPassword = require("../models/userModel");
+const { isVerifiedUser } = require('../middlewares/verifyToken');
+
 
 // REGISTER
+// @desc    Auth user/set token
+//route     /auth/register
+//@access   Private
 router.post("/register", async (request, response,next) => {
   const { username, password, img, phoneNumber,status, role  } = request.body;
 
@@ -63,14 +68,14 @@ router.post("/register", async (request, response,next) => {
     // response.status(201).json({...others, accessToken});
     response.status(201).json({success:true, message: "User Created",data: {...others}});
   } catch (err) {
-    response.status(500).json({ message: "Server error. Please try again." });
+     response.status(500).json({ message: "Server error. Please try again." });
   }
 });
 
 
 // @desc    Auth user/set token
 //route     /auth/login
-//@access   Public
+//@access   Private
 router.post("/login", async (request, response, next) => {
     const { phoneNumber, password } = request.body;
   
@@ -113,6 +118,19 @@ router.post("/login", async (request, response, next) => {
       }
     } catch (err) {
       response.status(500).json({ message: "Server error. Please try again." });
+    }
+  });
+
+  // @desc    Auth user/set token
+//route     /auth/login
+//@access   Private
+  router.post("/logout",isVerifiedUser, async (request, response, next) => {
+    try {
+      response.clearCookie('accessToken');
+      response.status(200).json({ success: true, message: "Successfully logged out" });  
+      
+    } catch (error) {
+       return next(error)
     }
   });
 

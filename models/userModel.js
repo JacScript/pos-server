@@ -28,7 +28,8 @@ const schema = new Schema({
     },
 
     img: {
-        type: String // Optional profile image URL
+        type: String ,// Optional profile image URL
+        default: ""
     },
 
     status: {
