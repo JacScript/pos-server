@@ -1,4 +1,4 @@
-const { model, Schema,  mongoose } = require("mongoose");
+const { model, Schema,  default:mongoose } = require("mongoose");
 
 const schema = new Schema ({
     tableNo: {
@@ -9,6 +9,10 @@ const schema = new Schema ({
     status: {
         type: String,
         default: "Available"
+    },
+    seats: {
+        type: Number,
+        required: true
     },
 
     currentOrder: {

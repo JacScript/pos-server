@@ -12,7 +12,7 @@ const router = require('express').Router();
 router.post("/", isVerifiedUser, async(request, response, next) => {
     try {
 
-        const { tableNo } = request.body;
+        const { tableNo, seats } = request.body;
 
         if(!tableNo) {
             const error = createHttpError(400, "Please Provide Table Number!!");
@@ -25,7 +25,7 @@ router.post("/", isVerifiedUser, async(request, response, next) => {
             return next(error)
         }
 
-        const newTable = new Table({tableNo});
+        const newTable = new Table({tableNo, seats });
         await newTable.save();
         response.status(200).json({success: true, message: "Table Added! ", data: newTable })
 
@@ -41,7 +41,10 @@ router.post("/", isVerifiedUser, async(request, response, next) => {
 router.get("/", isVerifiedUser, async (request, response, next) => {
     try {
         
-      const tables = await Table.find();
+      const tables = await Table.find().populate({
+        path: "currentOrder",
+        select: "customerDetails"
+      });
       response.status(200).json({success:true, data: tables  })
 
     } catch (error) {
