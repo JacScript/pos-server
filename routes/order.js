@@ -13,7 +13,7 @@ const router = require("express").Router();
 router.post("/",isVerifiedUser, async(request, response,next) => {
     try{
 
-
+      // console.log("Incoming Order Data:", request.body);
        const order = await new Order(request.body);
        await order.save();
 
@@ -61,7 +61,7 @@ router.get("/:id", isVerifiedUser, async(request, response, next) => {
 router.get("/",isVerifiedUser, async(request, response, next) => {
   try {
 
-    const orders = await Order.find();
+    const orders = await Order.find().populate("table");
     response.status(200).json({success: true, data: orders})
     
   } catch (error) {

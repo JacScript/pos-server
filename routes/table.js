@@ -40,6 +40,8 @@ router.post("/", isVerifiedUser, async(request, response, next) => {
 //@access   Private
 router.get("/", isVerifiedUser, async (request, response, next) => {
     try {
+
+
         
       const tables = await Table.find().populate({
         path: "currentOrder",
@@ -48,6 +50,7 @@ router.get("/", isVerifiedUser, async (request, response, next) => {
       response.status(200).json({success:true, data: tables  })
 
     } catch (error) {
+        // console.log(error)
       return next(error);        
     }
 });
@@ -57,6 +60,9 @@ router.get("/", isVerifiedUser, async (request, response, next) => {
 //@access   Private
 router.put("/:id", isVerifiedUser, async(request, response, next) => {
     try {
+
+        // console.log("Incoming Order Data:", request.body);
+
 
         const tableId = request.params.id;
         const { status, orderId } = request.body;

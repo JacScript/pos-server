@@ -24,6 +24,14 @@ const schema = new Schema({
         type: Date,
         default: Date.now()
     },
+    orderNumber: {
+        type: Number,
+        required: true
+    },
+    paymentMethod:{
+        type: String,
+        required: true
+    },
     bills: {
         total: {
             type: Number,
