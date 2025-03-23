@@ -75,6 +75,9 @@ router.get("/",isVerifiedUser, async(request, response, next) => {
 router.put("/:id",isVerifiedUser, async(request, response, next) => {
     try {
 
+      // console.log("Incoming Order Data:", request.params.id);
+      // console.log("Incoming Order Data:", request.body);
+
       const orderId = request.params.id
 
      // Verify valid object ID format (optional, but recommended for security)
