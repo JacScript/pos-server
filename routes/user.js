@@ -14,7 +14,7 @@ router.get('/', isVerifiedUser , async (request, response,next) => {
     try {
         
       const userId = request.user._id;
-      const user = await User.findById(userId);
+      const user = await User.findById(userId).populate("menus");
 
           // Remove the password field from the response
     const { password: _, ...others } = user.toObject();

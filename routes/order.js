@@ -13,7 +13,7 @@ const router = require("express").Router();
 router.post("/",isVerifiedUser, async(request, response,next) => {
     try{
 
-      // console.log("Incoming Order Data:", request.body);
+      console.log("Incoming Order Data:", request.body);
        const order = await new Order(request.body);
        await order.save();
 

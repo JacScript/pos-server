@@ -1,4 +1,4 @@
-const { model, Schema } = require('mongoose');
+const { model, Schema , default: mongoose} = require('mongoose');
 const bcrypt = require('bcrypt');
 
 const schema = new Schema({
@@ -19,6 +19,7 @@ const schema = new Schema({
             message: props => `${props.value} is not a valid phone number!`
         }
     },
+    menus: [{type: mongoose.Schema.Types.ObjectId,ref: "Menu" }] ,
 
     role: {
         type: String,
